@@ -10,27 +10,43 @@ class ServersListWidget extends StatelessWidget {
 
     return Container(
         width: double.infinity,
-        child: ListTile(
-          leading: GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: onTap(index),
-            child: Container(
-              width: 48,
-              height: 48,
-              alignment: Alignment.center,
-              child: CircleAvatar(),
-            ),
-          ),
-          title: Text(server.serverName),
-          subtitle: Text(
-              server.mapName +
-                  " - "
-                  + server.numPlayers.toString()
-                  + "/"
-                  + server.maxPlayers.toString()),
-          dense: false,
+        child: InkWell(onTap: () {
+          onTap(index);
+        },
+            child: ListTile(
+              leading: Container(
+                width: 48,
+                height: 48,
+                alignment: Alignment.center,
+                child: CircleAvatar(backgroundImage: getImageForCountry(server.country)),
+              ),
+              title: Text(getTitleForServer(server)),
+              subtitle: Text(getSubtitleForServer(server)),
+              dense: false,
+            )
         )
     );
+  }
+
+  //Return image from assets based on 'Country' flag
+  //eg. 'US'
+  //Flag assets are /assets/flags/XX.png
+  AssetImage getImageForCountry(String country) {
+    return AssetImage("assets/flags/" + country + ".png");
+  }
+
+  //Return title for server widget
+  String getTitleForServer(Server server) {
+    return server.serverName;
+  }
+
+  //Return constructed subtitle for server widget
+  String getSubtitleForServer(Server server) {
+    return server.mapName +
+        " - "
+        + server.numPlayers.toString()
+        + "/"
+        + server.maxPlayers.toString();
   }
 
   @override
@@ -41,6 +57,6 @@ class ServersListWidget extends StatelessWidget {
 
   //Item selected
   onTap(int index) {
-
+    print('onTap' + index.toString());
   }
 }

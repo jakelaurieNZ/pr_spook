@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.grey,
       ),
-      home: ServerListScreen(title: 'Flutter Demo Home Page'),
+      home: ServerListScreen(),
     );
   }
 }

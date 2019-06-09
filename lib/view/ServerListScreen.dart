@@ -7,8 +7,7 @@ import 'package:pr_spook/model/Server.dart';
 import 'package:pr_spook/view/widget/ServersListWidget.dart';
 
 class ServerListScreen extends StatefulWidget {
-  ServerListScreen({Key key, this.title}) : super(key: key);
-  final String title;
+  ServerListScreen({Key key}) : super(key: key);
 
   @override
   _ServerListScreenState createState() => _ServerListScreenState();
@@ -53,29 +52,23 @@ class _ServerListScreenState extends State<ServerListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Fetch Data Example',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('PRSpook'),
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Fetch Data Example'),
-        ),
-        body: Center(
-          child: FutureBuilder<List<Server>>(
-            future: serversFuture,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return buildList(snapshot.data);
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
-              }
+      body: Center(
+        child: FutureBuilder<List<Server>>(
+          future: serversFuture,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return buildList(snapshot.data);
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            }
 
-              // By default, show a loading spinner
-              return CircularProgressIndicator();
-            },
-          ),
+            // By default, show a loading spinner
+            return CircularProgressIndicator();
+          },
         ),
       ),
     );
